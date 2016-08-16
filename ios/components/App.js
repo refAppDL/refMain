@@ -3,7 +3,11 @@ import {
   Text,
   View,
   StyleSheet,
+  AsyncStorage
 } from 'react-native';
+
+var Page = require("./ios/components/Page.js")
+var Opening = require("./ios/components/Opening.js")
 
 
 class App extends Component {
