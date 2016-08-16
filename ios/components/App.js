@@ -23,7 +23,7 @@ class App extends Component {
 var styles = StyleSheet.create({
   main: {
     color: 'green',
-    marginTop: 300,
+    marginTop: 300
   }
 })
 
