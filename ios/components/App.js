@@ -15,13 +15,16 @@ class App extends Component {
   }
   render(){
     return(
-      <Text style={styles.color}>Now we begin the App process</Text>
+      <Text style={styles.main}>Now we begin the App process</Text>
     )
   }
 }
 
 var styles = StyleSheet.create({
-  color: "green",
+  main: {
+    color: 'green',
+    marginTop: 300,
+  }
 })
 
 
