@@ -6,8 +6,8 @@ import {
   AsyncStorage
 } from 'react-native';
 
-var Page = require("./ios/components/Page.js")
-var Opening = require("./ios/components/Opening.js")
+// var Page = require("./Page.js")
+var Opening = require("./Opening.js")
 
 
 class App extends Component {
@@ -19,7 +19,7 @@ class App extends Component {
   }
   render(){
     return(
-      <Text style={styles.main}>Now we begin the App process</Text>
+      <Opening/>
     )
   }
 }
