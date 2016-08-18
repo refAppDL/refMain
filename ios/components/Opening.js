@@ -11,10 +11,9 @@ import Swiper from 'react-native-swiper'
 class Opening extends Component{
   constructor(props){
     super(props);
-    this.state = {}
   }
-  sendUserToDash(){
-    console.log("sending user to dash");
+  sendUserToPage(){
+    console.log("sending user to page");
   }
   render(){
     return (
@@ -36,7 +35,7 @@ class Opening extends Component{
            <TouchableHighlight
              style={styles.button}
              underlayColor={"#ff1493"}
-             onPress={this.sendUserToDash}>
+             onPress={this.props.sendUserToPage}>
               <Text style={styles.buttonText}>Touch Here</Text>
             </TouchableHighlight>
           </View>
@@ -91,6 +90,7 @@ var styles = StyleSheet.create({
     alignItems: 'center',
     height: 100,
     width: 300,
+    borderRadius: 10
   },
   buttonText: {
     fontSize: 30,
