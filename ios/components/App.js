@@ -84,7 +84,9 @@ class App extends Component {
 
 var styles = StyleSheet.create({
   main: {
-    flex: 1
+    flex: 1,
+    color: 'green',
+    marginTop: 300
   }
 })
 
