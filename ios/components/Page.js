@@ -1,5 +1,5 @@
-// var Nav = require("./Nav.js");
-// var Body = require("./Body.js");
+var Nav = require("./Nav.js");
+var Body = require("./Body.js");
 
 
 import React, { Component } from 'react';
@@ -15,9 +15,11 @@ class Page extends Component {
 
   }
   render(){
+    if(goToQuestions)
     return(
       <View style={styles.wrapper}>
-        <Text style={styles.text}>This is the PAGE, man</Text>
+        <Nav />
+        <Body />
       </View>
     )
   }
