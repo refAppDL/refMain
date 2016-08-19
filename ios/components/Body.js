@@ -21,7 +21,7 @@ class Body extends Component {
   render(){
     var pageKeep;
     if(goToSurvey)
-      pageKeep = <Survey />
+      pageKeep = <Survey/>
     else
       pageKeep = <Dash goToQuestions={this.toSurvey.bind(this)} />
     return(
