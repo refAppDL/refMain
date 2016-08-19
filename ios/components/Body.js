@@ -1,5 +1,5 @@
 var Dash = require("./Dash.js");
-var Survey = require("/.Survey.js");
+var Survey = require("./Survey.js");
 
 import React, { Component } from 'react';
 import {
