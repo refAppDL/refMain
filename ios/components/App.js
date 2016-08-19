@@ -50,7 +50,7 @@ class App extends Component {
   render(){
     var display;
     if (this.state.tripped === "false"){
-      //users first time on the app
+      //it is the users first time on the app, the trip-wire has not been tripped yet.
       if(this.state.goToOpening === "true"){
         //They should go to opener once they have cliked get started
         //on titlepage
@@ -59,18 +59,19 @@ class App extends Component {
         display = <TitlePage sendUserToOpening={this.sendUserToOpening.bind(this)}/>
       }
     } else {
-      if (this.state.shownAll === false){
-        display = <Survey
-          getResultFromUser={this.getResultFromUser.bind(this)}
-          nextSurvey={this.showNextSurveyQuestion.bind(this)}
-          currentQuestion={this.state.activeQuestions[this.state.currentlyShowing]}
-          questionIndex={this.state.currentlyShowing}
-          questionTotal={this.state.numberOfActive}/>
-      } else {
-        display = <Survey
-          nextSurvey={this.showNextSurveyQuestion.bind(this)}
-          currentQuestion={"NO MORE QUESTIONS. ANSWERS: " + this.state.results.toString()}
-          />
+      display = <Page/>
+      // if (this.state.shownAll === false){
+      //   display = <Survey
+      //     getResultFromUser={this.getResultFromUser.bind(this)}
+      //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
+      //     currentQuestion={this.state.activeQuestions[this.state.currentlyShowing]}
+      //     questionIndex={this.state.currentlyShowing}
+      //     questionTotal={this.state.numberOfActive}/>
+      // } else {
+      //   display = <Survey
+      //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
+      //     currentQuestion={"NO MORE QUESTIONS. ANSWERS: " + this.state.results.toString()}
+      //     />
       }
     }
     return(
