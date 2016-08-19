@@ -72,7 +72,7 @@ class App extends Component {
       //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
       //     currentQuestion={"NO MORE QUESTIONS. ANSWERS: " + this.state.results.toString()}
       //     />
-      }
+      //}
     }
     return(
       <View style={styles.main}>
@@ -86,8 +86,7 @@ class App extends Component {
 var styles = StyleSheet.create({
   main: {
     flex: 1,
-    color: 'green',
-    marginTop: 300
+    backgroundColor: 'green',
   }
 })
 
