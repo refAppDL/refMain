@@ -8,14 +8,20 @@ class Nav extends Component {
   }
   render(){
     return(
-      <Text> Hi from nav</Text>
+      <View style={styles.wrapper}>
+        <Text>Hi from the nav</Text>
+      </View>
     )
   }
 }
 
 var styles = StyleSheet.create({
   wrapper: {
-
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderColor: "purple",
+    borderWidth: 2,
+    flex: .07,
   }
 })
 

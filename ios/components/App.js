@@ -10,7 +10,7 @@ var Page = require("./Page.js")
 var Opening = require("./Opening.js");
 var TitlePage = require("./TitlePage.js");
 var Survey = require("./Survey.js");
-
+var Nav = require("./Nav.js");
 
 
 class App extends Component {
@@ -75,6 +75,7 @@ class App extends Component {
     }
     return(
       <View style={styles.main}>
+        <Nav/>
         {display}
       </View>
     )
