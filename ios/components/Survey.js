@@ -13,6 +13,11 @@ class Survey extends Component {
       selected: "none"
     }
   }
+  continue(){
+    this.props.getResultFromUser(this.state.selected);
+    this.props.nextSurvey();
+    this.setState({selected: 'none'});
+  }
   selectYes(){
     //yes will be the right button
     this.setState({selected: 'yes'});
@@ -79,7 +84,7 @@ class Survey extends Component {
     return(
       <View style={styles.wrapper}>
         <View style={styles.topHalf}>
-          <Text style={styles.questionText}>This is the survey - question here?</Text>
+          <Text style={styles.questionText}>{this.props.currentQuestion}</Text>
         </View>
         <View style={styles.bottomHalf}>
           <View style={styles.buttonBox}>
@@ -89,6 +94,13 @@ class Survey extends Component {
             <View style={styles.yesButton}>
               {yesButton}
             </View>
+          </View>
+          <View style={styles.nextBox}>
+            <TouchableHighlight
+              onPress={this.continue.bind(this)}
+              style={styles.nextButton}>
+              <Text style={styles.continueText}> Continue </Text>
+            </TouchableHighlight>
           </View>
         </View>
       </View>
@@ -109,13 +121,19 @@ var styles = StyleSheet.create({
   },
   bottomHalf:{
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-around",
     alignItems: "center"
   },
   buttonBox:{
     justifyContent: "space-around",
     flexDirection: "row",
     width: 300,
+  },
+  nextBox:{
+    height: 50,
+    width: 100,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   noButton: {
     alignItems: 'center',
@@ -155,6 +173,9 @@ var styles = StyleSheet.create({
   },
   questionText: {
     fontSize: 40,
+  },
+  continueText:{
+    color: "maroon"
   }
 })
 
