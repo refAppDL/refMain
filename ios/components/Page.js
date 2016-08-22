@@ -14,7 +14,7 @@ class Page extends Component {
     super(props);
   }
   render(){
-    if(goToQuestions)
+    
     return(
       <View style={styles.wrapper}>
         <Nav />

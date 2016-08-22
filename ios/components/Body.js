@@ -11,7 +11,7 @@ import {
 class Body extends Component {
   constructor(props){
     super(props);
-    this.state={goToSurvey: true};
+    this.state={goToSurvey: false};
 
   }
   toSurvey(e){
@@ -20,8 +20,9 @@ class Body extends Component {
   }
   render(){
     var pageKeep;
-    if(goToSurvey)
-      pageKeep = <Survey/>
+
+    if(this.state.goToSurvey)
+      pageKeep = <Survey />
     else
       pageKeep = <Dash goToQuestions={this.toSurvey.bind(this)} />
     return(

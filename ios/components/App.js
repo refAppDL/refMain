@@ -76,7 +76,6 @@ class App extends Component {
     }
     return(
       <View style={styles.main}>
-        <Nav/>
         {display}
       </View>
     )
