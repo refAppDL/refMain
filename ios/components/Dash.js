@@ -35,7 +35,7 @@ class Dash extends Component{
   render(){
 
     var pageShow, resultsButtonClass, questionsButtonClass;
-    if(resultsSelected){
+    if(this.state.resultsSelected){
       pageShow = <Results />
       resultsButtonClass= "selected";
       questionsButtonClass = "unselected";
@@ -47,16 +47,20 @@ class Dash extends Component{
     }
     return(
       <View>
-        <TouchableHighlight
-          className={resultsButtonClass}
-          onClick={this.resultsSelect}>
-            Results
-        </TouchableHighlight>
-        <TouchableHighlight
-          className={questionsButtonClass}
-          onClick={this.questionsSelect}>
-            Manage Questions
-        </TouchableHighlight>
+        <View className="resultsButton">
+          <TouchableHighlight
+            className={resultsButtonClass}
+            onPress={this.resultsSelect.bind(this)}>
+              <Text>Results</Text>
+          </TouchableHighlight>
+        </View>
+        <View className="QButton">
+          <TouchableHighlight
+            className={questionsButtonClass}
+            onPress={this.questionsSelect.bind(this)}>
+              <Text>Manage Questions</Text>
+          </TouchableHighlight>
+        </View>
         {pageShow}
       </View>
     )
