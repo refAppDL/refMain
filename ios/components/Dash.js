@@ -1,5 +1,6 @@
 var Results = require("./Results.js");
 var QuestionManager = require("./QuestionManager");
+var Lounge = require('./Lounge.js');
 var Button  = require('react-native-button');
 var Modal   = require('react-native-modalbox');
 // var Slider  = require('react-native-slider');
@@ -18,14 +19,15 @@ class Dash extends Component{
   constructor(props){
     super(props);
     this.state = {resultsSelected: true,
-        isOpen: true,
+        goToLounge: true,
+        isOpen: false,
         isDisabled: false,
         swipeToClose: true,
         sliderValue: 0.3};
 
   }
   openModal1(id) {
-   this.setState({isOpen:false});
+   this.refs.modal1.open();
   }
   toggleDisable() {
     this.setState({isDisabled: !this.state.isDisabled});
@@ -38,21 +40,27 @@ class Dash extends Component{
   resultsSelect(event){
     event.preventDefault();
     if(!this.state.resultsSelected){
-      this.setState({resultsSelected: true});
+      this.setState({resultsSelected: true, goToLounge: false});
     }
   }
   questionsSelect(event){
     event.preventDefault();
     if(this.state.resultsSelected){
-      this.setState({resultsSelected: false});
+      this.setState({resultsSelected: false, goToLounge: false});
     }
   }
 
-
+  leaveLounge(){
+    this.setState({goToLounge: false});
+  }
   render(){
+    var pageShow, resultsButtonStyle, questionsButtonStyle;
 
-    var pageShow, resultsButtonClass, questionsButtonClass;
-    if(this.state.resultsSelected){
+    if(this.state.goToLounge){
+      pageShow = <Lounge leave={this.leaveLounge.bind(this)} />
+      resultsButtonStyle = styles.rUnselected;
+      questionsButtonStyle = styles.qUnselected;
+    }else if(this.state.resultsSelected){
       pageShow = <Results />
       resultsButtonStyle = styles.rSelected;
       questionsButtonStyle = styles.qUnselected;
@@ -60,14 +68,13 @@ class Dash extends Component{
       pageShow = <QuestionManager />
       resultsButtonStyle = styles.rUnselected;
       questionsButtonStyle = styles.qSelected;
-
     }
     return(
       <View>
           <Button onPress={this.openModal1.bind(this)} style={styles.btn}>Basic modal</Button>
           <Modal style={[styles.modal, styles.modal1]} ref={"modal1"} swipeToClose={this.state.swipeToClose} onClosed={this.onClose} onOpened={this.onOpen} onClosingState={this.onClosingState}>
-            <Text style={styles.text}>Basic modal</Text>
-            <Button onPress={this.toggleSwipeToClose} style={styles.btn}>Disable swipeToClose({this.state.swipeToClose ? "true" : "false"})</Button>
+            <Text style={styles.text}>Would you like to answer the days questions?</Text>
+            <Button onPress={this.props.goToSurvey} style={styles.btn}>Take Days Survey</Button>
           </Modal>
           <TouchableHighlight
             style={resultsButtonStyle}
