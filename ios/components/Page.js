@@ -12,7 +12,6 @@ import {
 class Page extends Component {
   constructor(props){
     super(props);
-
   }
   render(){
 
