@@ -20,7 +20,7 @@ class Results extends Component{
   render(){
 
     return(
-      <View>
+      <View style={styles.main}>
         <Text>This is where you see your Results</Text>
 
 
@@ -32,7 +32,8 @@ var styles = StyleSheet.create({
   main: {
     color: 'blue',
     alignSelf: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    flex: 1,
   }
 });
 Results.external = true;

@@ -112,28 +112,32 @@ class Dash extends Component{
 }
 var styles = StyleSheet.create({
   wrapper:{
-    alignItems: 'center',
     borderColor: 'green',
     borderWidth: 2,
-    flex: 1
-  },
+    flex: 1,
+    flexDirection: "column"
+      },
   buttonBox: {
-    justifyContent: 'center',
-    alignItems: 'center',
     borderColor: 'red',
     borderWidth: 3,
-    flex: .2,
-    flexDirection: "column"
+    flex: .1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    flexDirection: 'row'
+
+
   },
   resultsButton:{
-    borderTopLeftRadius: 20,
-    borderBottomLeftRadius: 20,
-    alignSelf: 'flex-end'
+    height: 100,
+    width: 150,
+    borderRadius: 50
+
   },
   questionsButton:{
-    borderTopRightRadius: 20,
-    borderBottomRightRadius: 20,
-    alignSelf: 'flex-start'
+    height: 50,
+    width: 150,
+    borderRadius: 50
+
   },
   navD: {
     backgroundColor: 'teal',
