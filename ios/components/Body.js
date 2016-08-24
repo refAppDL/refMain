@@ -11,23 +11,39 @@ import {
 class Body extends Component {
   constructor(props){
     super(props);
-    this.state={goToSurvey: false};
+    this.state={goToSurvey: false, destination: this.props.destination};
 
   }
   toSurvey(e){
     e.preventDefault();
-    this.setState({goToSurvey: true});
+    this.setState({goToSurvey: true, destination: 'survey'});
+  }
+  getStateFromAsync(){
+    AsyncStorage.getItem('appData').then(value=>{
+      var dataObj = JSON.parse(value);
+      if(dataObj.tripped && dataObj.numberOfActive > 0 && dataObj.hasAnsweredToday){
+        this.setState({tripped: true, destination: 'lounge'});
+      }else if(dataObj.tripped && dataObj.numberOfActive > 0){
+        this.setState({tripped:true, destination: 'survey'});
+      }else if(dataObj.tripped){
+        this.setState({tripped: true, destination: 'addQuestion'});
+      }else{
+        this.setState({tripped: false, destination: 'opener'});
+      }
+
+    }).done();
   }
   render(){
-    var pageKeep;
-
-    if(this.state.goToSurvey)
-      pageKeep = <Survey />
+    var display;
+    if(this.state.destination === 'survey')
+      display = <Survey /> //Need to pass question props
     else
-      pageKeep = <Dash goToQuestions={this.toSurvey.bind(this)} />
+      display = <Dash
+                  goToQuestions={this.toSurvey.bind(this)}
+                  destination={this.props.destination}/>
     return(
       <View style={styles.wrapper}>
-        {pageKeep}
+        {display}
       </View>
     )
   }
@@ -36,9 +52,7 @@ class Body extends Component {
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#fff00f',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: 'lightblue'
   },
   text: {
     fontSize: 40,

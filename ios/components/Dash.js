@@ -1,5 +1,6 @@
 var Results = require("./Results.js");
 var QuestionManager = require("./QuestionManager");
+var Lounge = require('./Lounge.js');
 var Button  = require('react-native-button');
 var Modal   = require('react-native-modalbox');
 // var Slider  = require('react-native-slider');
@@ -10,7 +11,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableHighlight
+  TouchableHighlight,
+  AsyncStorage
 } from 'react-native';
 
 
@@ -18,14 +20,33 @@ class Dash extends Component{
   constructor(props){
     super(props);
     this.state = {resultsSelected: true,
-        isOpen: true,
+        goToLounge: true,
+        destination: this.props.destination,
+        isOpen: false,
         isDisabled: false,
         swipeToClose: true,
         sliderValue: 0.3};
 
   }
+  getStateFromAsync(){
+    AsyncStorage.getItem('appData').then(value=>{
+      console.log(value);
+      var dataObj = JSON.parse(value);
+      console.log(dataObj);
+      // if(dataObj.tripped && dataObj.numberOfActive > 0 && dataObj.hasAnsweredToday){
+      //   this.setState({tripped: true, destination: 'lounge'});
+      // }else if(dataObj.tripped && dataObj.numberOfActive > 0){
+      //   this.setState({tripped:true, destination: 'survey'});
+      // }else if(dataObj.tripped){
+      //   this.setState({tripped: true, destination: 'addQuestion'});
+      // }else{
+      //   this.setState({tripped: false, destination: 'opener'});
+      // }
+
+    }).done();
+  }
   openModal1(id) {
-   this.setState({isOpen:false});
+   this.refs.modal1.open();
   }
   toggleDisable() {
     this.setState({isDisabled: !this.state.isDisabled});
@@ -37,45 +58,44 @@ class Dash extends Component{
 
   resultsSelect(event){
     event.preventDefault();
-    if(!this.state.resultsSelected){
-      this.setState({resultsSelected: true});
+    if(this.state.destination !== 'results'){
+      this.setState({resultsSelected: true, goToLounge: false, destination: 'results'});
     }
   }
-  questionsSelect(event){
-    event.preventDefault();
-    if(this.state.resultsSelected){
-      this.setState({resultsSelected: false});
+  questionsSelect(){
+    if(this.state.destination !== 'addQuestion'){
+      this.setState({resultsSelected: false, goToLounge: false, destination: 'addQuestion'});
     }
   }
 
-
+  leaveLounge(){
+    this.setState({goToLounge: false, destination: "results"});
+  }
   render(){
+    var pageShow, resultsButtonStyle, questionsButtonStyle;
 
-    var pageShow, resultsButtonClass, questionsButtonClass;
-    if(this.state.resultsSelected){
+    if(this.state.destination === 'lounge'){
+      pageShow = <Lounge leave={this.leaveLounge.bind(this)} />
+      resultsButtonStyle = styles.kSelected;
+      questionsButtonStyle = styles.kSelected;
+    }else if(this.state.destination === 'addQuestion'){
+      pageShow = <QuestionManager />
+      resultsButtonStyle = styles.kSelected;
+      questionsButtonStyle = styles.rSelected;
+    }else{
       pageShow = <Results />
       resultsButtonStyle = styles.rSelected;
-      questionsButtonStyle = styles.qUnselected;
-    }else{
-      pageShow = <QuestionManager />
-      resultsButtonStyle = styles.rUnselected;
-      questionsButtonStyle = styles.qSelected;
-
+      questionsButtonStyle = styles.kSelected;
     }
     return(
-      <View>
-          <Button onPress={this.openModal1.bind(this)} style={styles.btn}>Basic modal</Button>
-          <Modal style={[styles.modal, styles.modal1]} ref={"modal1"} swipeToClose={this.state.swipeToClose} onClosed={this.onClose} onOpened={this.onOpen} onClosingState={this.onClosingState}>
-            <Text style={styles.text}>Basic modal</Text>
-            <Button onPress={this.toggleSwipeToClose} style={styles.btn}>Disable swipeToClose({this.state.swipeToClose ? "true" : "false"})</Button>
-          </Modal>
+      <View style={styles.wrapper}>
           <TouchableHighlight
-            style={resultsButtonStyle}
+            style={[styles.resultsButton, styles.navD, resultsButtonStyle]}
             onPress={this.resultsSelect.bind(this)}>
               <Text>Results</Text>
           </TouchableHighlight>
           <TouchableHighlight
-            style={questionsButtonStyle}
+            style={[styles.questionsButton, styles.navD, questionsButtonStyle]}
             onPress={this.questionsSelect.bind(this)}>
               <Text>Manage Questions</Text>
           </TouchableHighlight>
@@ -85,45 +105,32 @@ class Dash extends Component{
   }
 }
 var styles = StyleSheet.create({
-  rSelected: {
-    backgroundColor: 'blue',
-    height: 80,
-    width: 80,
-    borderColor: 'black',
-    borderTopLeftRadius: 40,
-    borderBottomLeftRadius: 40,
-    justifyContent: 'center'
-    // position: 'absolute',
-    // top: 30,
+  wrapper:{
+    alignItems: 'center',
+    justifyContent: 'space-between'
 
   },
-  rUnselected: {
-    backgroundColor: 'red',
-    height: 80,
-    width: 80,
-    borderColor: 'black',
-    borderTopLeftRadius: 40,
-    borderBottomLeftRadius: 40,
-    justifyContent: 'center'
+  resultsButton:{
+    borderTopLeftRadius: 20,
+    borderBottomLeftRadius: 20,
+    alignSelf: 'flex-end'
   },
-  qSelected: {
-    backgroundColor: 'blue',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 80,
-    width: 80,
-    borderColor: 'black',
-    borderTopRightRadius: 40,
-    borderBottomRightRadius: 40
+  questionsButton:{
+    borderTopRightRadius: 20,
+    borderBottomRightRadius: 20,
+    alignSelf: 'flex-start'
   },
-  qUnselected: {
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center',
-    height: 80,
-    width: 80,
-    borderTopRightRadius: 40,
-    borderBottomRightRadius: 40
+  navD: {
+    backgroundColor: 'teal',
+    height: 40,
+    width: 100,
+    borderColor: 'black'
+  },
+  rSelected: {
+    backgroundColor: 'red'
+  },
+  kSelected: {
+    backgroundColor: 'teal'
   },
   modal: {
     justifyContent: 'center',
