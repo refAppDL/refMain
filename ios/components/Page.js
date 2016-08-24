@@ -15,11 +15,11 @@ class Page extends Component {
 
   }
   render(){
-    
+
     return(
       <View style={styles.wrapper}>
         <Nav />
-        <Body />
+        <Body destination = {this.props.destination}/>
       </View>
     )
   }
@@ -28,9 +28,7 @@ class Page extends Component {
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: '#fff00f',
-    justifyContent: 'center',
-    alignItems: 'center'
+    backgroundColor: 'blue'
   },
   text: {
     fontSize: 40,

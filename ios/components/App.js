@@ -21,13 +21,36 @@ class App extends Component {
     this.state = {
       results: [],
       shownAll: false,
-      goToOpening: 'false',
-      tripped: 'false',
+      goToOpening: false,
+      tripped: false,
       currentlyShowing: 0,
+      hasAnsweredToday: false,
       numberOfActive: 3,
-      numberOfRetired: 2,
-      activeQuestions: ["did you workout today?", "did you eat sushi today?", "have you done your laundry?"]
+      numberOfRetired: 2
     }
+    //AsyncStorage.setItem('appData', JSON.stringify(this.state));
+
+  }
+  componentDidMount(){
+    this.getStateFromAsync();
+  }
+  getStateFromAsync(){
+    AsyncStorage.getItem('appData').then(value=>{
+      var dataObj = JSON.parse(value);
+      if(dataObj === null){
+        return;
+      }
+      if(dataObj.tripped && dataObj.numberOfActive > 0 && dataObj.hasAnsweredToday){
+        this.setState({tripped: true, destination: 'lounge'});
+      }else if(dataObj.tripped && dataObj.numberOfActive > 0){
+        this.setState({tripped:true, destination: 'survey'});
+      }else if(dataObj.tripped){
+        this.setState({tripped: true, destination: 'addQuestion'});
+      }else{
+        this.setState({tripped: false, destination: 'opener'});
+      }
+
+    }).done();
   }
   getResultFromUser(result){
     this.setState({results: this.state.results.concat(result)});
@@ -42,38 +65,46 @@ class App extends Component {
   }
   sendUserToOpening(){
     console.log("user was sent to opening");
-    this.setState({goToOpening: 'true'});
+    this.setState({goToOpening: true});
   }
   sendUserToPage(){
-    this.setState({tripped: 'true'});
+    this.setState({tripped: true, destination: 'addQuestion'});
+    AsyncStorage.setItem('dataObj', JSON.stringify(this.state))
   }
   render(){
     var display;
-    if (this.state.tripped === "false"){
-      //it is the users first time on the app, the trip-wire has not been tripped yet.
-      if(this.state.goToOpening === "true"){
-        //They should go to opener once they have cliked get started
-        //on titlepage
+    switch(this.state.destination){
+      case('opener'):
         display = <Opening sendUserToPage={this.sendUserToPage.bind(this)}/>
-      } else {
-        display = <TitlePage sendUserToOpening={this.sendUserToOpening.bind(this)}/>
-      }
-    } else {
-      display = <Page/>
-      // if (this.state.shownAll === false){
-      //   display = <Survey
-      //     getResultFromUser={this.getResultFromUser.bind(this)}
-      //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
-      //     currentQuestion={this.state.activeQuestions[this.state.currentlyShowing]}
-      //     questionIndex={this.state.currentlyShowing}
-      //     questionTotal={this.state.numberOfActive}/>
-      // } else {
-      //   display = <Survey
-      //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
-      //     currentQuestion={"NO MORE QUESTIONS. ANSWERS: " + this.state.results.toString()}
-      //     />
-      //}
+      break;
+      default:
+        display = <Page destination={this.state.destination}/>
+      break;
+
     }
+    // if (this.state.tripped === false){
+    //   //it is the users first time on the app, the trip-wire has not been tripped yet.
+    //   if(this.state.goToOpening === true){
+    //     //They should go to opener once they have cliked get started
+    //     //on titlepage
+    //   } else {
+    //     display = <TitlePage sendUserToOpening={this.sendUserToOpening.bind(this)}/>
+    //   }
+    // } else {
+    //   // if (this.state.shownAll === false){
+    //   //   display = <Survey
+    //   //     getResultFromUser={this.getResultFromUser.bind(this)}
+    //   //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
+    //   //     currentQuestion={this.state.activeQuestions[this.state.currentlyShowing]}
+    //   //     questionIndex={this.state.currentlyShowing}
+    //   //     questionTotal={this.state.numberOfActive}/>
+    //   // } else {
+    //   //   display = <Survey
+    //   //     nextSurvey={this.showNextSurveyQuestion.bind(this)}
+    //   //     currentQuestion={"NO MORE QUESTIONS. ANSWERS: " + this.state.results.toString()}
+    //   //     />
+    //   //}
+    // }
     return(
       <View style={styles.main}>
         {display}

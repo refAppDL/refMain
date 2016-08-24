@@ -6,6 +6,11 @@ var AsyncStorageSchema = {
       {type: 'binary', question: 'Did you eat today?', frequency: 'daily'}
 
   ],
+  questionsDepreciated: [
+      {type:'binary', question: "Did you drink today?", frequency: 'daily' },
+      {type: 'binary', question: 'Did you eat today?', frequency: 'daily'}
+
+  ],
   answers: [
     {
       question_id: 0,
@@ -26,6 +31,12 @@ var AsyncStorageSchema = {
       ]
     }
 
-  ]
+  ],
+  appData: {
+    tripped: false,
+    numberOfActive: 0,
+    hasAnsweredToday: false
+
+  }
 
 };
