@@ -1,15 +1,19 @@
 import React, {Component} from 'react'
-import {Text, View,StyleSheet, TouchableHighlight} from 'react-native';
+import {Text, View,StyleSheet, TouchableHighlight, AsyncStorage} from 'react-native';
 
 class Nav extends Component {
   constructor(props){
     super(props);
     this.state = {};
   }
+  clearAsync(){
+    AsyncStorage.clear();
+  }
   render(){
     return(
       <View style={styles.wrapper}>
         <Text>Hi from the nav</Text>
+        <TouchableHighlight onPress={this.clearAsync.bind(this)}><Text>Clear dat syna</Text></TouchableHighlight>
       </View>
     )
   }

@@ -27,7 +27,7 @@ class Page extends Component {
 var styles = StyleSheet.create({
   wrapper: {
     flex: 1,
-    backgroundColor: 'blue'
+    backgroundColor: 'yellow'
   },
   text: {
     fontSize: 40,

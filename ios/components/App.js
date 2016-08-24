@@ -25,7 +25,7 @@ class App extends Component {
       tripped: false,
       currentlyShowing: 0,
       hasAnsweredToday: false,
-      numberOfActive: 3,
+      numberOfActive: 0,
       numberOfRetired: 2,
       destination: 'opener'
     }
@@ -38,6 +38,7 @@ class App extends Component {
   getStateFromAsync(){
     AsyncStorage.getItem('appData').then(value=>{
       var dataObj = JSON.parse(value);
+      console.log(dataObj);
       if(dataObj === null){
         return;
       }
@@ -69,8 +70,11 @@ class App extends Component {
     this.setState({goToOpening: true});
   }
   sendUserToPage(){
+
+    AsyncStorage.setItem('appData',JSON.stringify({tripped: true,
+                                                  numberOfActive:0,
+                                                  hasAnsweredToday: false}));
     this.setState({tripped: true, destination: 'addQuestion'});
-    AsyncStorage.setItem('dataObj', JSON.stringify(this.state))
   }
   render(){
     var display;
