@@ -14,7 +14,7 @@ class Body extends Component {
     super(props);
     this.state={
       destination: this.props.destination,
-      questions: ["nothing"],
+      questions: [{text:''}],
       currentlyShowing: 0,
       numberOfActive: 0,
       results:[]
@@ -49,15 +49,18 @@ class Body extends Component {
     }).done();
   }
   getStateFromAsync(){
-    AsyncStorage.getItem('questions').then(value=>{
-      var dataArray = JSON.parse(value);
-      this.setState({questions: dataArray, numberOfActive: dataArray.length})
-    })
-    AsyncStorage.getItem('appData').then(value=>{
-      var dataObj = JSON.parse(value);
-      this.setState({currentlyShowing: dataObj.currentlyShowing})
-
-
+    // AsyncStorage.getItem('questions').then(value=>{
+    //   var dataArray = JSON.parse(value);
+    //   this.setState({questions: dataArray, numberOfActive: dataArray.length})
+    // }).done();
+    // AsyncStorage.getItem('appData').then(value=>{
+    //   var dataObj = JSON.parse(value);
+    //   this.setState({currentlyShowing: dataObj.currentlyShowing})
+    // }).done();
+    AsyncStorage.multiGet(['questions', 'appData']).then(dataArr=>{
+      var qs = JSON.parse(dataArr[0][1]);
+      var dataObj = JSON.parse(dataArr[1][1]);
+      this.setState({questions: qs, numberOfActive: qs.length});
     }).done();
   }
   render(){
