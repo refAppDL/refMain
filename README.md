@@ -10,8 +10,8 @@ Once you have this data, you can then track your performance over the past day, 
 
 ![alt tag](/WelcomePage.png)
 
-![alt tag](/openingPage.png)
+![alt tag](/EndOfSetup.png)
 
 ### users will then be prompted to add questions, and then answer them daily
 
-![alt tag](/Survey.png)
+![alt tag](/SurveyImage.png)
