@@ -47,6 +47,20 @@ class Body extends Component {
       dataObj.hasAnsweredToday = true;
       AsyncStorage.setItem('appData', JSON.stringify(dataObj));
     }).done();
+    var toAdd = this.state.results;
+    AsyncStorage.getItem('answers').then(value=>{
+      var resultsArr = JSON.parse(value);
+      for (var i = 0; i < toAdd.length; i++) {
+        var currentQ = resultsArr[i];
+        var d = new Date();
+        currentQ.answers.push({
+          date: d,
+          value: toAdd[i]
+        })
+      }
+      AsyncStorage.setItem('answers', JSON.stringify(resultsArr));
+    });
+
   }
   getStateFromAsync(){
     // AsyncStorage.getItem('questions').then(value=>{

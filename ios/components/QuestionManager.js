@@ -38,8 +38,19 @@ class QuestionManager extends Component{
       var qs = JSON.parse(value);
       qs.push(newQ);
       AsyncStorage.setItem('questions', JSON.stringify(qs));
+      this.addAnswer(this.state.text);
       this.updateAppData(qs.length);
       this.setState({questions: qs, isOpen: false, text: ''});
+    })
+
+  }
+  addAnswer(text){
+    AsyncStorage.getItem('answers').then(value=>{
+      var resultsArr = JSON.parse(value);
+      var questionObj = {question_id: resultsArr.length, text: text, answers:[]};
+      resultsArr.push(questionObj);
+      console.log(resultsArr);
+      AsyncStorage.setItem('answers', JSON.stringify(resultsArr));
     })
 
   }
@@ -59,7 +70,6 @@ class QuestionManager extends Component{
 
   render(){
     var display = [];
-    console.log(this.state.questions);
     if(this.state.questions.length === 0){
       display.push(<Text> There are no questions to Display, add some</Text>);
     }else{
@@ -92,7 +102,8 @@ var styles = StyleSheet.create({
   },
   wrapper: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1
   },
   modal: {
    justifyContent: 'center',
