@@ -93,6 +93,7 @@ class Dash extends Component{
     }
     return(
       <View style={styles.wrapper}>
+        <View style={styles.buttonBox}>
           <TouchableHighlight
             style={[styles.resultsButton, styles.navD, resultsButtonStyle]}
             onPress={this.resultsSelect.bind(this)}>
@@ -103,6 +104,7 @@ class Dash extends Component{
             onPress={this.questionsSelect.bind(this)}>
               <Text>Manage Questions</Text>
           </TouchableHighlight>
+        </View>
         {pageShow}
       </View>
     )
@@ -111,8 +113,17 @@ class Dash extends Component{
 var styles = StyleSheet.create({
   wrapper:{
     alignItems: 'center',
-    justifyContent: 'space-between'
-
+    borderColor: 'green',
+    borderWidth: 2,
+    flex: 1
+  },
+  buttonBox: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderColor: 'red',
+    borderWidth: 3,
+    flex: .2,
+    flexDirection: "column"
   },
   resultsButton:{
     borderTopLeftRadius: 20,

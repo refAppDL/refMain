@@ -28,7 +28,7 @@ var styles = StyleSheet.create({
     justifyContent: 'center',
     borderColor: "purple",
     borderWidth: 2,
-    flex: .07,
+    flex: 1,
   }
 })
 
