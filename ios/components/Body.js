@@ -11,7 +11,14 @@ import {
 class Body extends Component {
   constructor(props){
     super(props);
-    this.state={goToSurvey: false, destination: this.props.destination};
+    this.state={
+      goToSurvey: false,
+      destination: this.props.destination,
+      numberOfActive: 3,
+      numberOfRetired: 4,
+      activeQuestions: ["did you eat today?", "did you drink today?", "did you breathe today?"],
+      results: []
+    };
 
   }
   toSurvey(e){
