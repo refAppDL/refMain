@@ -13,19 +13,24 @@ class Body extends Component {
     super(props);
     this.state={
       goToSurvey: false,
-      destination: "survey",
-      numberOfActive: 3,
-      numberOfRetired: 4,
-      activeQuestions: ["did you eat today?", "did you drink today?", "did you breathe today?"],
+      destination: 'survey',
+      numberOfActive: 0,
+      numberOfRetired: 0,
+      activeQuestions: [],
       results: [],
       shownAll: false,
       currentlyShowing: 0
     };
 
   }
+  componentDidMount(){
+    AsyncStorage.getItem('questions').then(value=>{
+      var qs = JSON.parse(value);
+      this.setState({activeQuestions: qs, numberOfActive: qs.length});
+    }); 
+  }
   getResultFromUser(result){
     this.setState({results: this.state.results.concat(result)});
-
   }
   toSurvey(e){
     e.preventDefault();
