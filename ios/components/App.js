@@ -26,7 +26,8 @@ class App extends Component {
       currentlyShowing: 0,
       hasAnsweredToday: false,
       numberOfActive: 3,
-      numberOfRetired: 2
+      numberOfRetired: 2,
+      destination: 'opener'
     }
     //AsyncStorage.setItem('appData', JSON.stringify(this.state));
 
