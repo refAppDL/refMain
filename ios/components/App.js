@@ -37,8 +37,7 @@ class App extends Component {
   }
   getStateFromAsync(){
     AsyncStorage.getItem('appData').then(value=>{
-      var dataObj = JSON.parse(value);
-      console.log(dataObj);
+      var dataObj = JSON.parse(value); 
       if(dataObj === null){
         return;
       }

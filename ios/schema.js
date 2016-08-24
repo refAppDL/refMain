@@ -14,7 +14,7 @@ var AsyncStorageSchema = {
   answers: [
     {
       question_id: 0,
-      type: 'binary',
+      text: "Did you drink today?",
       answers: [
         {date: 'date Object insert here', value: 0},
         {date: 'another date Object', value: 1},
