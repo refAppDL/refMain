@@ -21,7 +21,7 @@ class App extends Component {
     this.state = {
       results: [],
       shownAll: false,
-      goToOpening: false,
+      // goToOpening: false,
       tripped: false,
       currentlyShowing: 0,
       hasAnsweredToday: false,
@@ -65,18 +65,19 @@ class App extends Component {
       this.setState({shownAll: true})
     }
   }
-  sendUserToOpening(){
-    console.log("user was sent to opening");
-    this.setState({goToOpening: true});
-  }
+  // sendUserToOpening(){
+  //   console.log("user was sent to opening");
+  //   this.setState({goToOpening: true});
+  // }
   sendUserToPage(){
-
     AsyncStorage.setItem('appData',JSON.stringify({tripped: true,
-                                                  numberOfActive:0,
-                                                  hasAnsweredToday: false}));
+                                                  numberOfActive: 0,
+                                                  hasAnsweredToday: false,
+                                                  shownAll: false,
+                                                  currentlyShowing: 0}));
     AsyncStorage.setItem('questions',JSON.stringify([]));
     AsyncStorage.setItem('questions_inactive', JSON.stringify([]));
-    AsyncStorage.setItem('answers', JSON.stringify([])); 
+    AsyncStorage.setItem('answers', JSON.stringify([]));
     this.setState({tripped: true, destination: 'addQuestion'});
   }
   render(){

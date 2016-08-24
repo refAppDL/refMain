@@ -47,7 +47,7 @@ class QuestionManager extends Component{
     AsyncStorage.getItem('appData').then(value=>{
       var dataObj = JSON.parse(value);
       dataObj.numberOfActive = numberOfActive;
-      AsyncStorage.setItem('appData', JSON.stringify(dataObj)); 
+      AsyncStorage.setItem('appData', JSON.stringify(dataObj));
     })
   }
   closeModal(){
