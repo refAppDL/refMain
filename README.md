@@ -9,3 +9,9 @@ Once you have this data, you can then track your performance over the past day, 
 ### A welcome page explains what is going on
 
 ![alt tag](/WelcomePage.png)
+
+![alt tag](/openingPage.png)
+
+### users will then be prompted to add questions, and then answer them daily
+
+![alt tag](/Survey.png)
