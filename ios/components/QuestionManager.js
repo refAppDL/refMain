@@ -92,7 +92,8 @@ var styles = StyleSheet.create({
   },
   wrapper: {
     alignItems: 'center',
-    justifyContent: 'center'
+    justifyContent: 'center',
+    flex: 1,
   },
   modal: {
    justifyContent: 'center',
