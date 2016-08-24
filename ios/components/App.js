@@ -74,6 +74,9 @@ class App extends Component {
     AsyncStorage.setItem('appData',JSON.stringify({tripped: true,
                                                   numberOfActive:0,
                                                   hasAnsweredToday: false}));
+    AsyncStorage.setItem('questions',JSON.stringify([]));
+    AsyncStorage.setItem('questions_inactive', JSON.stringify([]));
+    AsyncStorage.setItem('answers', JSON.stringify([])); 
     this.setState({tripped: true, destination: 'addQuestion'});
   }
   render(){
