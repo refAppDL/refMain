@@ -3,6 +3,7 @@ var QuestionManager = require("./QuestionManager");
 var Lounge = require('./Lounge.js');
 var Button  = require('react-native-button');
 var Modal   = require('react-native-modalbox');
+
 // var Slider  = require('react-native-slider');
 
 import React, { Component } from 'react';
@@ -68,7 +69,7 @@ class Dash extends Component{
     }
   }
   clearAsync(){
-    AsyncStorage.clear(); 
+    AsyncStorage.clear();
   }
 
   leaveLounge(){
@@ -103,11 +104,6 @@ class Dash extends Component{
               <Text>Manage Questions</Text>
           </TouchableHighlight>
         {pageShow}
-          <TouchableHighlight
-            style={[styles.questionsButton, styles.navD, questionsButtonStyle]}
-            onPress={this.clearAsync.bind(this)}>
-              <Text>clear Async</Text>
-          </TouchableHighlight>
       </View>
     )
   }
