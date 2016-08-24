@@ -22,15 +22,9 @@ class Body extends Component {
 
   }
   componentDidMount(){
-// <<<<<<< HEAD
-    // AsyncStorage.getItem('questions').then(value=>{
-    //   var qs = JSON.parse(value);
-    //   this.setState({activeQuestions: qs, numberOfActive: qs.length});
-    // });
-// =======
     this.getStateFromAsync();
-// >>>>>>> brad
   }
+
   getResultFromUser(result){
     this.setState({results: this.state.results.concat(result)});
   }
@@ -47,8 +41,12 @@ class Body extends Component {
       this.setState({shownAll: true})
     }
   }
-  doNothing(){
-    console.log("nada");
+  endSurvey(){
+    AsyncStorage.getItem("appData").then(value => {
+      var dataObj = JSON.parse(value);
+      dataObj.hasAnsweredToday = true;
+      AsyncStorage.setItem('appData', JSON.stringify(dataObj));
+    }).done();
   }
   getStateFromAsync(){
     AsyncStorage.getItem('questions').then(value=>{
@@ -74,7 +72,7 @@ class Body extends Component {
            questionTotal={this.state.numberOfActive}/>
        } else {
          display = <Survey
-           getResultFromUser={this.doNothing.bind(this)}
+           getResultFromUser={this.endSurvey.bind(this)}
            nextSurvey={this.goToLounge.bind(this)}
            currentQuestion={"NO MORE QUESTIONS. ANSWERS: " + this.state.results.toString()}
            />
