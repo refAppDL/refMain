@@ -8,4 +8,4 @@ Once you have this data, you can then track your performance over the past day, 
 
 ### A welcome page explains what is going on
 
-![alt tag](/welcomePage.png)
+![alt tag](/WelcomePage.png)
