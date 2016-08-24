@@ -64,20 +64,21 @@ class QuestionManager extends Component{
       display.push(<Text> There are no questions to Display, add some</Text>);
     }else{
       for (var i = 0; i < this.state.questions.length; i++) {
-        display.push(<Text key={this.state.questions[i].text}> {this.state.questions[i].text } </Text>);
+        display.push(<Text style={styles.qList} key={this.state.questions[i].text}> {this.state.questions[i].text } </Text>);
       }
     }
-    var BContent = <Button onPress={this.closeModal.bind(this)} style={[styles.btn, styles.btnModal]}>X</Button>;
+    var BContent = <Button onPress={this.closeModal.bind(this)} style={styles.btnModal}>X</Button>;
 
     return(
-      <View>
-        <Text>This is the questions page</Text>
+      <View style={styles.wrapper}>
+        <Text style={styles.header}>Your Questions:</Text>
         {display}
-        <TouchableHighlight onPress={this.openModal.bind(this)}><Text>+</Text></TouchableHighlight>
-          <Modal isOpen={this.state.isOpen} onClosed={this.closeModal.bind(this)} style={[styles.modal, styles.modal4]} position={"center"} backdropContent={BContent}>
+        <TouchableHighlight style={styles.addButton} onPress={this.openModal.bind(this)}><Text style={styles.plus}>+</Text></TouchableHighlight>
+          <Modal isOpen={this.state.isOpen} onClosed={this.closeModal.bind(this)} style={[styles.modal, styles.modal4]} position={"center"} >
+            {BContent}
             <Text style={styles.text}>Add a question:</Text>
             <TextInput style={styles.inputText} onChangeText={(text)=>this.setState({text:text})} value ={this.state.text} />
-            <Button onPress={this.addQuestion.bind(this)}>Submit Question</Button>
+            <Button style={styles.submitButton} onPress={this.addQuestion.bind(this)}>Submit Question</Button>
           </Modal>
       </View>
     )
@@ -89,9 +90,15 @@ var styles = StyleSheet.create({
     alignSelf: 'center',
     flexDirection: 'row'
   },
+  wrapper: {
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   modal: {
    justifyContent: 'center',
-   alignItems: 'center'
+   alignItems: 'center',
+   width: 350,
+   backgroundColor: '#3B5998'
  },
 
  modal2: {
@@ -108,8 +115,14 @@ var styles = StyleSheet.create({
    height: 300
  },
  inputText:{
-   height: 20,
-   width: 200
+   height: 30,
+   width: 300,
+   justifyContent: 'center',
+   margin: 20,
+   alignItems: 'center',
+   borderColor: 'black',
+   padding: 3,
+   borderWidth: 1
  },
 
  btn: {
@@ -121,17 +134,40 @@ var styles = StyleSheet.create({
 
  btnModal: {
    position: "absolute",
-   top: 0,
-   right: 0,
-   width: 50,
-   height: 50,
+   top: -70,
+   right: -150,
+   width: 20,
+   height: 20,
    backgroundColor: "transparent",
    color: 'black'
+ },
+ submitButton: {
+   backgroundColor: 'teal',
+   color: 'blue',
+   padding: 10,
+   borderRadius: 5,
+   margin: 5,
+   justifyContent: 'center',
+   alignItems: 'center'
  },
 
  text: {
    color: "black",
    fontSize: 22
+ },
+ qList:{
+   fontSize: 20,
+   textAlign: 'center',
+   margin: 5
+ },
+ addButton: {
+   backgroundColor: 'teal',
+   height: 40,
+   width: 40,
+   borderRadius: 20
+ },
+ plus: {
+   fontSize: 20
  }
 });
 QuestionManager.external = true;
