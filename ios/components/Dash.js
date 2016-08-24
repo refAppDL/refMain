@@ -67,6 +67,9 @@ class Dash extends Component{
       this.setState({resultsSelected: false, goToLounge: false, destination: 'addQuestion'});
     }
   }
+  clearAsync(){
+    AsyncStorage.clear(); 
+  }
 
   leaveLounge(){
     this.setState({goToLounge: false, destination: "results"});
@@ -100,6 +103,11 @@ class Dash extends Component{
               <Text>Manage Questions</Text>
           </TouchableHighlight>
         {pageShow}
+          <TouchableHighlight
+            style={[styles.questionsButton, styles.navD, questionsButtonStyle]}
+            onPress={this.clearAsync.bind(this)}>
+              <Text>clear Async</Text>
+          </TouchableHighlight>
       </View>
     )
   }
