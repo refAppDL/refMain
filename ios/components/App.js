@@ -37,7 +37,7 @@ class App extends Component {
   }
   getStateFromAsync(){
     AsyncStorage.getItem('appData').then(value=>{
-      var dataObj = JSON.parse(value); 
+      var dataObj = JSON.parse(value);
       if(dataObj === null){
         return;
       }
@@ -73,7 +73,8 @@ class App extends Component {
                                                   numberOfActive: 0,
                                                   hasAnsweredToday: false,
                                                   shownAll: false,
-                                                  currentlyShowing: 0}));
+                                                  currentlyShowing: 0,
+                                                  lastVisit: new Date()}));
     AsyncStorage.setItem('questions',JSON.stringify([]));
     AsyncStorage.setItem('questions_inactive', JSON.stringify([]));
     AsyncStorage.setItem('answers', JSON.stringify([]));

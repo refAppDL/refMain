@@ -69,15 +69,15 @@ class Results extends Component{
 
     return(
       <View style={styles.main}>
-        <Text>This is where you see your Results</Text>
+        <Text style={styles.basicText}>This is where you see your Results</Text>
             <Picker
-              style={[styles.pickStyle]}
+              style={[styles.picker, styles.pickStyle]}
               selectedValue={this.state.qIndex}
               onValueChange={this.onValueChange.bind(this, 'qIndex')}
               mode="dropdown">
               {buttonArr}
             </Picker>
-        <Text>{qText}</Text>
+        <Text style={styles.basicText}>{qText}</Text>
         <Text>{"Number of Yes: " + numberYes}</Text>
         <Text>{"Number of No: " + numberNo}</Text>
 
@@ -89,15 +89,22 @@ var styles = StyleSheet.create({
   main: {
 
     alignSelf: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
     flex: 1,
-    flexDirection: 'row'
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start'
   },
-  wrapper: {
-    flex: 1
+  picker:{
+    width: 200,
+    alignSelf: 'center'
+
   },
   pickStyle:{
-    backgroundColor: 'blue'
+
+  },
+  basicText:{
+    margin: 5,
+    textAlign: 'center'
   }
 });
 Results.external = true;
